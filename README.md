@@ -36,3 +36,7 @@ search: Elinizdeki vektöre en yakın olan vektörleri ve ilgili verileri dönd�
 
 11. release_collection() – Koleksiyonu Serbest Bırakma
     >Açıklama: Bellekte yüklenen koleksiyonu serbest bırakır. Bu işlem, belleği serbest bırakmak için gereklidir.
+
+
+QT Install
+    sudo apt-get install python3-pyqt5

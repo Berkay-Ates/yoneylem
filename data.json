@@ -1,0 +1,179 @@
+{
+    "instructors": [
+        {
+            "instructor_name": "John Doe",
+            "lessons": [
+                "Math 101",
+                "Physics 201"
+            ],
+            "preferred_days": {
+                "Monday": true,
+                "Tuesday": true,
+                "Wednesday": true,
+                "Thursday": true,
+                "Friday": true
+            }
+        },
+        {
+            "instructor_name": "Jane Smith",
+            "lessons": [
+                "Biology 101",
+                "Chemistry 201"
+            ],
+            "preferred_days": {
+                "Monday": false,
+                "Tuesday": true,
+                "Wednesday": false,
+                "Thursday": true,
+                "Friday": true
+            }
+        },
+        {
+            "instructor_name": "Alice Johnson",
+            "lessons": [
+                "English 101",
+                "History 201"
+            ],
+            "preferred_days": {
+                "Monday": true,
+                "Tuesday": true,
+                "Wednesday": false,
+                "Thursday": true,
+                "Friday": false
+            }
+        },
+        {
+            "instructor_name": "Robert Brown",
+            "lessons": [
+                "Philosophy 101",
+                "Math 102"
+            ],
+            "preferred_days": {
+                "Monday": true,
+                "Tuesday": false,
+                "Wednesday": true,
+                "Thursday": false,
+                "Friday": true
+            }
+        },
+        {
+            "instructor_name": "Laura Wilson",
+            "lessons": [
+                "Physics 301",
+                "Chemistry 301"
+            ],
+            "preferred_days": {
+                "Monday": false,
+                "Tuesday": false,
+                "Wednesday": false,
+                "Thursday": false,
+                "Friday": false
+            }
+        }
+    ],
+    "lessons": [
+        {
+            "lesson_name": "Math 101",
+            "instructors":[ "John Doe"],
+            "grade": "1st Grade",
+            "lesson_type": {
+                "Face To Face": true,
+                "Online": false,
+                "Hybrid": false
+            },
+            "lesson_hour":3
+
+        },
+        {
+            "lesson_name": "Biology 101",
+            "instructors": ["Jane Smith"],
+            "grade": "2nd Grade",
+            "lesson_type": {
+                "Face To Face": false,
+                "Online": true,
+                "Hybrid": false
+            },
+            "lesson_hour":3
+        },
+        {
+            "lesson_name": "English 101",
+            "instructors": ["Alice Johnson"],
+            "grade": "1st Grade",
+            "lesson_type": {
+                "Face To Face": true,
+                "Online": false,
+                "Hybrid": false
+            },
+            "lesson_hour":3
+        },
+        {
+            "lesson_name": "Physics 201",
+            "instructors": ["John Doe"],
+            "grade": "2nd Grade",
+            "lesson_type": {
+                "Face To Face": true,
+                "Online": false,
+                "Hybrid": false
+            },
+            "lesson_hour":3
+        },
+        {
+            "lesson_name": "Philosophy 101",
+            "instructors": [
+                "Robert Brown",
+                "John Doe",
+                "Jane Smith"
+            ],
+            "grade": "1st Grade",
+            "lesson_type": {
+                "Face To Face": true,
+                "Online": false,
+                "Hybrid": false
+            },
+            "lesson_hour":3
+        },
+        {
+            "lesson_name": "History 201",
+            "instructors": ["Alice Johnson"],
+            "grade": "2nd Grade",
+            "lesson_type": {
+                "Face To Face": false,
+                "Online": false,
+                "Hybrid": true
+            },
+            "lesson_hour":3
+        },
+        {
+            "lesson_name": "Math 102",
+            "instructors": ["Robert Brown"],
+            "grade": "1st Grade",
+            "lesson_type": {
+                "Face To Face": true,
+                "Online": false,
+                "Hybrid": false
+            },
+            "lesson_hour":3
+        },
+        {
+            "lesson_name": "Chemistry 301",
+            "instructors": ["Laura Wilson"],
+            "grade": "3rd Grade",
+            "lesson_type": {
+                "Face To Face": false,
+                "Online": true,
+                "Hybrid": false
+            },
+            "lesson_hour":3
+        }
+    ],
+    "classrooms": [
+        "Room 101",
+        "Lab 202",
+        "Room 103",
+        "Lab 204",
+        "Room 205",
+        "Lab 206",
+        "Room 207",
+        "Lab 208"
+    ]
+}
