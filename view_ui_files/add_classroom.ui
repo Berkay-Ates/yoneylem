@@ -32,7 +32,11 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="lineEdit_classroom_name"/>
+         <widget class="QLineEdit" name="lineEdit_classroom_name">
+          <property name="placeholderText">
+           <string>Classroom Name</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>

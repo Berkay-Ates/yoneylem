@@ -32,7 +32,11 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="lineEdit_instructor_name"/>
+         <widget class="QLineEdit" name="lineEdit_instructor_name">
+          <property name="placeholderText">
+           <string>Instructor Name</string>
+          </property>
+         </widget>
         </item>
         <item>
          <widget class="QGroupBox" name="groupBox_2">
@@ -112,6 +116,9 @@
            <font>
             <pointsize>10</pointsize>
            </font>
+          </property>
+          <property name="placeholderText">
+           <string>Select Lesson</string>
           </property>
          </widget>
         </item>
