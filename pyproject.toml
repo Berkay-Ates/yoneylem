@@ -11,8 +11,10 @@ dependencies = [
     "ortools>=9.11.4210",
     "pandas>=2.2.3",
     "pip>=24.3.1",
+    "pulp>=2.9.0",
     "pymilvus>=2.5.0",
     "pyqt5>=5.15.11",
     "reportlab>=4.2.5",
     "reportlib>=3.4.0",
+    "weasyprint>=63.1",
 ]
