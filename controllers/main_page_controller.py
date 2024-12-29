@@ -15,7 +15,11 @@ class MainPageController(QMainWindow):
         self.main_page_view = MainPage()
         self.main_page_view.setupUi(self)
         self.init_ui_elements()
-        self.config_data = None
+        self.config_data = {
+            "instructors": [],
+            "lessons": [],
+            "classrooms": []
+        }
     
     def init_ui_elements(self):
         self.main_page_view.menuMain_Page.triggered.connect(self.on_chat_page_clicked)
@@ -193,6 +197,8 @@ class MainPageController(QMainWindow):
                 json.dump(self.config_data, json_file, indent=4)
 
             QMessageBox.information(None, "Success!", "Configuration has been saved successfully!")
+
+        self.main_page_view.label_output_file.setText("Exported File:" + file_name)
     
 
     def load_configuration(self):
@@ -205,6 +211,7 @@ class MainPageController(QMainWindow):
 
             self.update_list_views()
             QMessageBox.information(None, "Success!", "Configuration has been loaded successfully!")
+        self.main_page_view.label_input_file.setText("Loaded File: " + file_name)
 
 
     # Clear the list then add the elements from the config_data

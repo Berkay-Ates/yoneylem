@@ -18,9 +18,9 @@ class AddInstructorController(QMainWindow):
         self.main_page_view.pushButton_save_instructor.clicked.connect(self.on_save_instructor)
         self.main_page_view.pushButton_assign_lesson.clicked.connect(self.on_assign_lesson)
         self.main_page_view.pushButton_remove_selected_lesson.clicked.connect(self.on_remove_selected_lesson)
-
-        for lesson in data['lessons']:
-            self.main_page_view.comboBox_lessons.addItem(lesson['lesson_name'])
+        if data is not None:
+            for lesson in data['lessons']:
+                self.main_page_view.comboBox_lessons.addItem(lesson['lesson_name'])
 
         self.model = QStandardItemModel(self.main_page_view.listView_instructor_lessons)
         self.main_page_view.listView_instructor_lessons.setModel(self.model)

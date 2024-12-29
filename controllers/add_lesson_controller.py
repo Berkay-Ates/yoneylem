@@ -21,8 +21,9 @@ class AddLessonController(QMainWindow):
         self.main_page_view.pushButton_save_lesson.clicked.connect(self.on_save_lesson)
         self.main_page_view.pushButton_assign_instructor.clicked.connect(self.on_assign_instructor)
         self.main_page_view.pushButton_remove_selected_instructor.clicked.connect(self.on_remove_selected_instructor)
-        for instructor in data["instructors"]:
-            self.main_page_view.comboBox_instructors.addItem(instructor["instructor_name"])
+        if data is not None:
+            for instructor in data["instructors"]:
+                self.main_page_view.comboBox_instructors.addItem(instructor["instructor_name"])
 
     def on_assign_instructor(self):
         selected_instructor = self.main_page_view.comboBox_instructors.currentText()
@@ -41,7 +42,7 @@ class AddLessonController(QMainWindow):
         lesson_name = self.main_page_view.lineEdit_lesson_name.text()
         instructors = self.get_all_elements()
         grade = self.main_page_view.comboBox_grades.currentText()
-        lesson_hour = self.main_page_view.timeEdit_lesson_hour.text()
+        lesson_hour = self.main_page_view.lineEdit_lesson_hour.text()
 
         lesson_type = {
             "Face To Face": self.main_page_view.radioButton_face_to_face.isChecked(),
