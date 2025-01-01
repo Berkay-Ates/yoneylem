@@ -103,6 +103,15 @@ def generate_schedule_pdf(solution_data, output_path="schedule.pdf"):
             position: relative;
         }
         
+        .all-courses-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            padding: 1px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 2px;
+        }
+
         .face-to-face { 
             background-color: #98FB98;
             border-left: 3px solid #228B22;
@@ -242,15 +251,22 @@ def generate_schedule_pdf(solution_data, output_path="schedule.pdf"):
     # Create schedule grid with support for multiple groups
     schedule_grid = {day: {grade: {time: [] for time in times} for grade in grades} for day in days}
 
+    # Helper function to check if a lesson overlaps with a time slot
+    def overlaps_with_time(lesson, time):
+        lesson_end = lesson["start_time"] + lesson["duration"]
+        return lesson["start_time"] <= time < lesson_end
+
     # Populate schedule grid
     for lesson in solution_data:
         day = lesson["day"]
         grade = lesson["grade"]
         start_time = lesson["start_time"]
-        duration = lesson["duration"]
+        end_time = start_time + lesson["duration"]
 
-        # Add lesson only to the start time slot
-        schedule_grid[day][grade][start_time].append(lesson)
+        # Add lesson to all time slots it spans
+        for time in range(start_time, end_time):
+            if time in schedule_grid[day][grade]:
+                schedule_grid[day][grade][time].append(lesson)
 
     # Generate HTML
     html_content = f"""
@@ -278,75 +294,39 @@ def generate_schedule_pdf(solution_data, output_path="schedule.pdf"):
         if not lessons:
             return ""
 
-        # First, separate mandatory and elective courses
-        mandatory_courses = {}
-        elective_courses = {}
+        # Sort lessons by start time
+        sorted_lessons = sorted(lessons, key=lambda x: (x["start_time"], x.get("is_elective", False)))
 
-        for lesson in lessons:
-            course_name = lesson["name"]
-            course_data = {
-                "lessons": [],
-                "duration": lesson["duration"],
-                "type": lesson["type"],
-                "is_elective": lesson.get("is_elective", False),
-            }
+        content = '<div class="all-courses-container">'
 
-            if lesson.get("is_elective", False):
-                if course_name not in elective_courses:
-                    elective_courses[course_name] = course_data
-                elective_courses[course_name]["lessons"].append(lesson)
-            else:
-                if course_name not in mandatory_courses:
-                    mandatory_courses[course_name] = course_data
-                mandatory_courses[course_name]["lessons"].append(lesson)
+        # Process each lesson individually to show exact time slots
+        for lesson in sorted_lessons:
+            type_class = lesson["type"].lower().replace(" ", "-")
+            is_elective = lesson.get("is_elective", False)
+            course_type = "elective" if is_elective else "mandatory"
 
-        content = ""
-
-        # Handle mandatory courses
-        for course_name, course_data in mandatory_courses.items():
-            type_class = course_data["type"].lower().replace(" ", "-")
             content += f'<div class="course-cell {type_class}">'
-            content += f'<div class="course-code mandatory">{course_name} ({course_data["duration"]} hours)</div>'
-            content += f'<div class="course-info">Mandatory - {course_data["type"]}</div>'
+            content += f'<div class="course-code {course_type}">{lesson["name"]} ({lesson["duration"]} hours)</div>'
+            content += f'<div class="course-info">{course_type.capitalize()} - {lesson["type"]} ({lesson["start_time"]:02d}:00-{lesson["start_time"]+lesson["duration"]:02d}:00)</div>'
 
             # Groups container
             content += '<div class="groups-container">'
-            for lesson in sorted(course_data["lessons"], key=lambda x: x.get("group", 1)):
-                content += f"""
-                    <div class="group-info">
-                        <div class="group-header">Group {lesson.get("group", 1)}</div>
-                        <div class="course-instructor">{lesson["instructor"]}</div>
-                        {f'<div class="course-details">{lesson["classroom"]}</div>' if lesson.get("classroom") and lesson["type"] != "Online" else ""}
-                    </div>
-                """
+            content += f"""
+                <div class="group-info">
+                    <div class="group-header">Group {lesson.get("group", 1)}</div>
+                    <div class="course-instructor">{lesson["instructor"]}</div>
+                    {f'<div class="course-details">{lesson["classroom"]}</div>' if lesson.get("classroom") and lesson["type"] != "Online" else ""}
+                </div>
+            """
             content += "</div></div>"
 
-        # Handle elective courses
-        if elective_courses:
-            content += '<div class="electives-container">'
-            for course_name, course_data in elective_courses.items():
-                type_class = course_data["type"].lower().replace(" ", "-")
-                content += f'<div class="elective-course {type_class}">'
-                content += f'<div class="course-code elective">{course_name} ({course_data["duration"]} hours)</div>'
-                content += f'<div class="course-info">Elective - {course_data["type"]}</div>'
-
-                # Groups container for this elective course
-                content += '<div class="groups-container">'
-                for lesson in sorted(course_data["lessons"], key=lambda x: x.get("group", 1)):
-                    content += f"""
-                        <div class="group-info">
-                            <div class="group-header">Group {lesson.get("group", 1)}</div>
-                            <div class="course-instructor">{lesson["instructor"]}</div>
-                            {f'<div class="course-details">{lesson["classroom"]}</div>' if lesson.get("classroom") and lesson["type"] != "Online" else ""}
-                        </div>
-                    """
-                content += "</div></div>"
-            content += "</div>"
-
+        content += "</div>"
         return content
 
     # Generate rows for each day and time
     current_day = None
+    processed_cells = set()  # Keep track of cells that have been processed
+
     for day in days:
         for time in times:
             row_html = "<tr>"
@@ -364,30 +344,39 @@ def generate_schedule_pdf(solution_data, output_path="schedule.pdf"):
 
             # Add cells for each grade
             for grade in grades:
+                cell_key = f"{day}-{grade}-{time}"
+                if cell_key in processed_cells:
+                    continue
+
                 lessons_at_time = schedule_grid[day][grade][time]
-                cell_added = False
+                if not lessons_at_time:
+                    row_html += "<td></td>"
+                else:
+                    # Find all lessons that start at this time or overlap with this time
+                    starting_lessons = [l for l in lessons_at_time if l["start_time"] == time]
+                    overlapping_lessons = [l for l in lessons_at_time if overlaps_with_time(l, time)]
 
-                # Check if this time slot is part of a previous lesson's duration
-                is_continuation = False
-                for prev_time in range(max(8, time - 5), time):
-                    prev_lessons = schedule_grid[day][grade][prev_time]
-                    for prev_lesson in prev_lessons:
-                        if prev_time + prev_lesson["duration"] > time:
-                            is_continuation = True
-                            break
-                    if is_continuation:
-                        break
+                    if starting_lessons or (overlapping_lessons and cell_key not in processed_cells):
+                        # Calculate the maximum duration considering all overlapping lessons
+                        max_end_time = max(l["start_time"] + l["duration"] for l in overlapping_lessons)
+                        rowspan = max_end_time - time
 
-                if not is_continuation:
-                    if not lessons_at_time:
-                        row_html += "<td></td>"
-                    else:
-                        # Calculate rowspan based on the maximum duration of lessons starting at this time
-                        max_duration = max(lesson["duration"] for lesson in lessons_at_time)
-                        row_html += f'<td rowspan="{max_duration}" class="course-cell {lessons_at_time[0]["type"].lower().replace(" ", "-")}">'
-                        row_html += generate_lesson_cell_content(lessons_at_time)
+                        # Get the type of the first lesson (prioritizing mandatory over elective)
+                        sorted_lessons = sorted(
+                            overlapping_lessons, key=lambda x: (x.get("is_elective", False), x["start_time"])
+                        )
+                        primary_type = sorted_lessons[0]["type"].lower().replace(" ", "-")
+
+                        row_html += f'<td rowspan="{rowspan}" class="course-cell {primary_type}">'
+                        row_html += generate_lesson_cell_content(overlapping_lessons)
                         row_html += "</td>"
-                    cell_added = True
+
+                        # Mark cells as processed
+                        for t in range(time, time + rowspan):
+                            processed_cells.add(f"{day}-{grade}-{t}")
+                    else:
+                        # This time slot is part of a previous lesson's span
+                        continue
 
             row_html += "</tr>"
             html_content += row_html
