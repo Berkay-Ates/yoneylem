@@ -186,21 +186,18 @@ def solve_schedule(data):
     for grade in grades:
         for day in days_of_week:
             for time in time_slots:
-                # Get all mandatory lessons for this grade
-                mandatory_lessons = []
-                for lesson in lessons:
-                    if lesson["grade"] == grade and lesson["obligation"] == "mandatory":
-                        mandatory_lessons.append(lesson)
+                # Get all lessons for this grade
+                grade_lessons = [lesson for lesson in lessons if lesson["grade"] == grade]
 
-                # Create constraint for all mandatory lessons
-                for lesson1 in mandatory_lessons:
+                # Create constraint for all lessons in the same grade
+                for lesson1 in grade_lessons:
                     # Check all possible start times that would overlap with current time slot
                     for start_time in range(
                         max(8, time - lesson1["duration"] + 1), min(time + 1, 17 - lesson1["duration"] + 1)
                     ):
                         if start_time < lunch_start and start_time + lesson1["duration"] > lunch_start:
                             continue
-                        if start_time >= lunch_start and start_time < lunch_end:
+                        if start_time >= lunch_start and time < lunch_end:
                             continue
 
                         # Get all variables for this lesson at this time
@@ -234,28 +231,55 @@ def solve_schedule(data):
                                         x[(lesson1["name"], lesson1["group"], instructor, None, day, start_time)]
                                     )
 
-                        # For each other mandatory lesson that's not a different group of the same lesson
-                        for lesson2 in mandatory_lessons:
+                        # For each other lesson in the same grade that's not a different group of the same lesson
+                        for lesson2 in grade_lessons:
                             if (
                                 lesson1["name"] != lesson2["name"]
                             ):  # Skip if they're the same lesson (different groups allowed to overlap)
-                                for start_time2 in range(
-                                    max(8, time - lesson2["duration"] + 1), min(time + 1, 17 - lesson2["duration"] + 1)
-                                ):
-                                    if start_time2 < lunch_start and start_time2 + lesson2["duration"] > lunch_start:
-                                        continue
-                                    if start_time2 >= lunch_start and start_time2 < lunch_end:
-                                        continue
+                                # If either lesson is mandatory, or they have different obligations, they can't overlap
+                                if lesson1["obligation"] == "mandatory" or lesson2["obligation"] == "mandatory":
+                                    for start_time2 in range(
+                                        max(8, time - lesson2["duration"] + 1),
+                                        min(time + 1, 17 - lesson2["duration"] + 1),
+                                    ):
+                                        if (
+                                            start_time2 < lunch_start
+                                            and start_time2 + lesson2["duration"] > lunch_start
+                                        ):
+                                            continue
+                                        if start_time2 >= lunch_start and start_time2 < lunch_end:
+                                            continue
 
-                                    lesson2_expr = []
-                                    for instructor in lesson2["instructors"]:
-                                        if lesson2["type"] in ["FaceToFace", "Hybrid"]:
-                                            for classroom in classrooms:
+                                        lesson2_expr = []
+                                        for instructor in lesson2["instructors"]:
+                                            if lesson2["type"] in ["FaceToFace", "Hybrid"]:
+                                                for classroom in classrooms:
+                                                    if (
+                                                        lesson2["name"],
+                                                        lesson2["group"],
+                                                        instructor,
+                                                        classroom,
+                                                        day,
+                                                        start_time2,
+                                                    ) in x:
+                                                        lesson2_expr.append(
+                                                            x[
+                                                                (
+                                                                    lesson2["name"],
+                                                                    lesson2["group"],
+                                                                    instructor,
+                                                                    classroom,
+                                                                    day,
+                                                                    start_time2,
+                                                                )
+                                                            ]
+                                                        )
+                                            else:  # Online classes
                                                 if (
                                                     lesson2["name"],
                                                     lesson2["group"],
                                                     instructor,
-                                                    classroom,
+                                                    None,
                                                     day,
                                                     start_time2,
                                                 ) in x:
@@ -265,37 +289,16 @@ def solve_schedule(data):
                                                                 lesson2["name"],
                                                                 lesson2["group"],
                                                                 instructor,
-                                                                classroom,
+                                                                None,
                                                                 day,
                                                                 start_time2,
                                                             )
                                                         ]
                                                     )
-                                        else:  # Online classes
-                                            if (
-                                                lesson2["name"],
-                                                lesson2["group"],
-                                                instructor,
-                                                None,
-                                                day,
-                                                start_time2,
-                                            ) in x:
-                                                lesson2_expr.append(
-                                                    x[
-                                                        (
-                                                            lesson2["name"],
-                                                            lesson2["group"],
-                                                            instructor,
-                                                            None,
-                                                            day,
-                                                            start_time2,
-                                                        )
-                                                    ]
-                                                )
 
-                                    # If both lessons have variables at these times, add constraint
-                                    if lesson1_expr and lesson2_expr:
-                                        solver.Add(sum(lesson1_expr) + sum(lesson2_expr) <= 1)
+                                        # If both lessons have variables at these times, add constraint
+                                        if lesson1_expr and lesson2_expr:
+                                            solver.Add(sum(lesson1_expr) + sum(lesson2_expr) <= 1)
 
     # Constraint 5: Different groups of same lesson can overlap in time but need different classrooms
     for lesson_name in set(lesson["name"] for lesson in lessons):
