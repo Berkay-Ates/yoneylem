@@ -7,12 +7,14 @@ from PyQt5.QtGui import QStandardItemModel, QStandardItem
 class AddLessonController(QMainWindow):
 
     data_signal = pyqtSignal(dict)
+    data_signal_update = pyqtSignal(dict)
 
-    def __init__(self, data) -> None:
+    def __init__(self, data=None, index=None) -> None:
         super().__init__()
         self.main_page_view = MainPage()
         self.main_page_view.setupUi(self)
         self.init_ui_elements(data)
+        self.index = index
 
         self.model = QStandardItemModel(self.main_page_view.listView_lesson_instructors)
         self.main_page_view.listView_lesson_instructors.setModel(self.model)
@@ -70,6 +72,40 @@ class AddLessonController(QMainWindow):
         )
 
         QMessageBox.information(None, "Success!", "Lesson has been added successfully!")
+
+    def on_update_lesson(self):
+        lesson_name = self.main_page_view.lineEdit_lesson_name.text()
+        instructors = self.get_all_elements()
+        grade = self.main_page_view.comboBox_grades.currentText()
+        group = self.main_page_view.comboBox_lesson_group.currentText()
+        obligation = self.main_page_view.comboBox_obligation.currentText()
+        lesson_hour = self.main_page_view.lineEdit_lesson_hour.text()
+
+        lesson_type = ""
+
+        if self.main_page_view.radioButton_face_to_face.isChecked():
+            lesson_type = "FaceToFace"
+
+        if self.main_page_view.radioButton_online.isChecked():
+            lesson_type = "Online"
+
+        if self.main_page_view.radioButton_hybrid.isChecked():
+            lesson_type = "Hybrid"
+
+        self.data_signal_update.emit(
+            {
+                "name": lesson_name,
+                "instructors": instructors,
+                "grade": int(grade),
+                "obligation": obligation,
+                "group": int(group),
+                "type": lesson_type,
+                "duration": int(lesson_hour),
+            },
+            self.index,
+        )
+
+        QMessageBox.information(None, "Success!", "Lesson has been updated successfully!")
 
     def get_all_elements(self):
         model = self.main_page_view.listView_lesson_instructors.model()

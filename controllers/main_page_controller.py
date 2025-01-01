@@ -117,7 +117,7 @@ class MainPageController(QMainWindow):
 
         selected_indexes = selected_indexes[0].row()
 
-        self.inspect_lesson = AddLessonController(self.config_data)
+        self.inspect_lesson = AddLessonController(self.config_data, selected_indexes)
 
         self.inspect_lesson.main_page_view.lineEdit_lesson_name.setText(
             self.config_data["lessons"][selected_indexes]["name"]
@@ -125,7 +125,6 @@ class MainPageController(QMainWindow):
         self.inspect_lesson.main_page_view.lineEdit_lesson_hour.setText(
             str(self.config_data["lessons"][selected_indexes]["duration"])
         )
-
         for instructor in self.config_data["lessons"][selected_indexes]["instructors"]:
             item = QStandardItem(instructor)
             self.inspect_lesson.model.appendRow(item)
@@ -149,8 +148,7 @@ class MainPageController(QMainWindow):
             self.config_data["lessons"][selected_indexes]["obligation"]
         )
         self.inspect_lesson.main_page_view.pushButton_save_lesson.setEnabled(False)
-        self.inspect_lesson.main_page_view.pushButton_assign_instructor.setEnabled(False)
-        self.inspect_lesson.main_page_view.pushButton_remove_selected_instructor.setEnabled(False)
+        self.inspect_lesson.data_signal_update.connect(self.on_lesson_data_updated)
         self.inspect_lesson.show()
 
     def on_inspect_instructor_clicked(self):
@@ -195,6 +193,7 @@ class MainPageController(QMainWindow):
         self.add_lesson_page = AddLessonController(self.config_data)
         self.add_lesson_page.show()
         self.add_lesson_page.data_signal.connect(self.on_lesson_data_received)
+        self.add_lesson_page.main_page_view.pushButton_update_lesson.setEnabled(False)
 
     def on_add_classroom_clicked(self):
         self.add_classroom_page = AddClassroomController()
@@ -218,6 +217,9 @@ class MainPageController(QMainWindow):
         self.config_data["classrooms"][index] = data
         self.update_list_views()
 
+    def on_lesson_data_updated(self, data, index):
+        self.config_data["lessons"][index] = data
+        self.update_list_views()
 
     def on_instructor_data_updated(self, data, index):
         self.config_data["instructors"][index] = data
