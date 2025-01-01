@@ -49,6 +49,12 @@ class MainPageController(QMainWindow):
     def on_find_solution_clicked(self):
         from pprint import pprint
 
+        file_name = self.main_page_view.lineEdit_outupt_file_name.text().split(".")[0] + ".pdf"
+
+        if file_name == ".pdf":
+            QMessageBox.warning(self, "Warning!", "Please enter a valid file name!")
+            return
+
         pprint(self.config_data)
         solution = solve_schedule(self.config_data)
         if solution is None:
@@ -56,7 +62,7 @@ class MainPageController(QMainWindow):
             return
 
         formatted_solution = format_solver_solution(solution)
-        generate_schedule_pdf(formatted_solution, "aaaaaaaaaaa.pdf")
+        generate_schedule_pdf(formatted_solution, file_name)
         QMessageBox.information(self, "Success!", "Schedule has been generated successfully!")
 
     def on_delete_instructor_clicked(self):
