@@ -102,10 +102,11 @@ class MainPageController(QMainWindow):
             QMessageBox.warning(self, "Warning!", "Please select a classroom to inspect.")
             return
         selected_indexes = selected_indexes[0].row()
-        self.inspect_classroom = AddClassroomController()
-        self.inspect_classroom.main_page_view.lineEdit_classroom_name.setText(
-            self.config_data["classrooms"][selected_indexes]
+        self.inspect_classroom = AddClassroomController(
+            self.config_data["classrooms"][selected_indexes], selected_indexes
         )
+        self.inspect_classroom.main_page_view.pushButton_save_classroom.setEnabled(False)
+        self.inspect_classroom.data_signal_update.connect(self.on_classroom_data_updated)
         self.inspect_classroom.show()
 
     def on_inspect_lesson_clicked(self):
@@ -198,6 +199,7 @@ class MainPageController(QMainWindow):
         self.add_classroom_page = AddClassroomController()
         self.add_classroom_page.show()
         self.add_classroom_page.data_signal.connect(self.on_classroom_data_received)
+        self.add_classroom_page.main_page_view.pushButton_update_classroom.setEnabled(False)
 
     def on_chat_page_clicked(self):
         self.ai_chat_page = AIChatPageController()
@@ -210,6 +212,12 @@ class MainPageController(QMainWindow):
     def on_lesson_data_received(self, data):
         self.config_data["lessons"].append(data)
         self.update_list_views()
+
+    def on_classroom_data_updated(self, data, index):
+        self.config_data["classrooms"][index] = data
+        self.update_list_views()
+
+
 
     def on_instructor_data_received(self, data):
         self.config_data["instructors"].append(data)
