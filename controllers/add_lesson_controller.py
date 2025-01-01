@@ -7,7 +7,7 @@ from PyQt5.QtGui import QStandardItemModel, QStandardItem
 class AddLessonController(QMainWindow):
 
     data_signal = pyqtSignal(dict)
-    data_signal_update = pyqtSignal(dict)
+    data_signal_update = pyqtSignal(dict, int)
 
     def __init__(self, data=None, index=None) -> None:
         super().__init__()
@@ -23,6 +23,7 @@ class AddLessonController(QMainWindow):
         self.main_page_view.pushButton_save_lesson.clicked.connect(self.on_save_lesson)
         self.main_page_view.pushButton_assign_instructor.clicked.connect(self.on_assign_instructor)
         self.main_page_view.pushButton_remove_selected_instructor.clicked.connect(self.on_remove_selected_instructor)
+        self.main_page_view.pushButton_update_lesson.clicked.connect(self.on_update_lesson)
         if data is not None:
             for instructor in data["instructors"]:
                 self.main_page_view.comboBox_instructors.addItem(instructor["name"])

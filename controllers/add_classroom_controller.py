@@ -17,6 +17,7 @@ class AddClassroomController(QMainWindow):
 
     def init_ui_elements(self, data):
         self.main_page_view.pushButton_save_classroom.clicked.connect(self.on_save_classroom)
+        self.main_page_view.pushButton_update_classroom.clicked.connect(self.on_update_classroom)
         self.main_page_view.lineEdit_classroom_name.setText(data)
 
     def on_save_classroom(self):
