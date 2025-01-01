@@ -144,9 +144,11 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label.setText(_translate("MainWindow", "Instructor Name"))
+        self.lineEdit_instructor_name.setPlaceholderText(_translate("MainWindow", "Instructor Name"))
         self.label_4.setText(_translate("MainWindow", "Lessons"))
         self.pushButton_remove_selected_lesson.setText(_translate("MainWindow", "Remove Selected Lesson"))
         self.label_3.setText(_translate("MainWindow", "Add Lesson"))
+        self.comboBox_lessons.setPlaceholderText(_translate("MainWindow", "Select Lesson"))
         self.pushButton_assign_lesson.setText(_translate("MainWindow", "Add Selected Lesson"))
         self.checkBox_monday.setText(_translate("MainWindow", "Monday"))
         self.checkBox_tuesday.setText(_translate("MainWindow", "Tuesday"))

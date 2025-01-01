@@ -6,6 +6,8 @@ from controllers.add_lesson_controller import AddLessonController
 from controllers.add_instructor_controller import AddInstructorController
 from controllers.add_classroom_controller import AddClassroomController
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
+from utils.draw_file import generate_schedule_pdf, format_solver_solution
+from utils.solve_schedule import solve_schedule
 
 
 class MainPageController(QMainWindow):
@@ -15,12 +17,8 @@ class MainPageController(QMainWindow):
         self.main_page_view = MainPage()
         self.main_page_view.setupUi(self)
         self.init_ui_elements()
-        self.config_data = {
-            "instructors": [],
-            "lessons": [],
-            "classrooms": []
-        }
-    
+        self.config_data = {"instructors": [], "lessons": [], "classrooms": []}
+
     def init_ui_elements(self):
         self.main_page_view.menuMain_Page.triggered.connect(self.on_chat_page_clicked)
         self.main_page_view.pushButton_add_classroom.clicked.connect(self.on_add_classroom_clicked)
@@ -31,7 +29,7 @@ class MainPageController(QMainWindow):
         self.main_page_view.pushButton_export_variables.clicked.connect(self.save_configuration)
 
         self.main_page_view.pushButton_inspect_classroom.clicked.connect(self.on_inspect_classroom_clicked)
-        self.main_page_view.pushButton_inspect_lesson.clicked.connect(self.on_inspect_lesson_clicked)   
+        self.main_page_view.pushButton_inspect_lesson.clicked.connect(self.on_inspect_lesson_clicked)
         self.main_page_view.pushButton_inspect_instructors.clicked.connect(self.on_inspect_instructor_clicked)
 
         self.main_page_view.pushButton_delete_classroom.clicked.connect(self.on_delete_classroom_clicked)
@@ -45,6 +43,21 @@ class MainPageController(QMainWindow):
         self.main_page_view.listView_instructors.setModel(self.instructor_model)
         self.main_page_view.listView_lessons.setModel(self.lesson_model)
         self.main_page_view.listView_classrooms.setModel(self.classroom_model)
+
+        self.main_page_view.pushButton_find_solution.clicked.connect(self.on_find_solution_clicked)
+
+    def on_find_solution_clicked(self):
+        from pprint import pprint
+
+        pprint(self.config_data)
+        solution = solve_schedule(self.config_data)
+        if solution is None:
+            QMessageBox.warning(self, "Warning!", "No solution found!")
+            return
+
+        formatted_solution = format_solver_solution(solution)
+        generate_schedule_pdf(formatted_solution, "aaaaaaaaaaa.pdf")
+        QMessageBox.information(self, "Success!", "Schedule has been generated successfully!")
 
     def on_delete_instructor_clicked(self):
         selected_indexes = self.main_page_view.listView_instructors.selectedIndexes()
@@ -84,75 +97,86 @@ class MainPageController(QMainWindow):
             return
         selected_indexes = selected_indexes[0].row()
         self.inspect_classroom = AddClassroomController()
-        self.inspect_classroom.main_page_view.lineEdit_classroom_name.setText(self.config_data["classrooms"][selected_indexes]) 
+        self.inspect_classroom.main_page_view.lineEdit_classroom_name.setText(
+            self.config_data["classrooms"][selected_indexes]
+        )
         self.inspect_classroom.show()
-
 
     def on_inspect_lesson_clicked(self):
         selected_indexes = self.main_page_view.listView_lessons.selectedIndexes()
         if not selected_indexes:
             QMessageBox.warning(self, "Warning!", "Please select a lesson to inspect")
             return
-        
+
         selected_indexes = selected_indexes[0].row()
-        
+
         self.inspect_lesson = AddLessonController(self.config_data)
 
-        self.inspect_lesson.main_page_view.lineEdit_lesson_name.setText(self.config_data["lessons"][selected_indexes]["lesson_name"])
-        self.inspect_lesson.main_page_view.lineEdit_lesson_hour.setText(str(self.config_data["lessons"][selected_indexes]["lesson_hour"]))
+        self.inspect_lesson.main_page_view.lineEdit_lesson_name.setText(
+            self.config_data["lessons"][selected_indexes]["name"]
+        )
+        self.inspect_lesson.main_page_view.lineEdit_lesson_hour.setText(
+            str(self.config_data["lessons"][selected_indexes]["duration"])
+        )
 
         for instructor in self.config_data["lessons"][selected_indexes]["instructors"]:
             item = QStandardItem(instructor)
             self.inspect_lesson.model.appendRow(item)
-        
-        for lesson_type, value in self.config_data["lessons"][selected_indexes]["lesson_type"].items():
-            if value:
-                if lesson_type == "Face To Face":
-                    self.inspect_lesson.main_page_view.radioButton_face_to_face.setChecked(True)
-                elif lesson_type == "Online":
-                    self.inspect_lesson.main_page_view.radioButton_online.setChecked(True)
-                elif lesson_type == "Hybrid":
-                    self.inspect_lesson.main_page_view.radioButton_hybrid.setChecked(True)
 
-        self.inspect_lesson.main_page_view.comboBox_grades.setCurrentText(self.config_data["lessons"][selected_indexes]["grade"])
+        lesson_type = self.config_data["lessons"][selected_indexes]["type"]
+
+        if lesson_type == "FaceToFace":
+            self.inspect_lesson.main_page_view.radioButton_face_to_face.setChecked(True)
+        elif lesson_type == "Online":
+            self.inspect_lesson.main_page_view.radioButton_online.setChecked(True)
+        elif lesson_type == "Hybrid":
+            self.inspect_lesson.main_page_view.radioButton_hybrid.setChecked(True)
+
+        self.inspect_lesson.main_page_view.comboBox_grades.setCurrentText(
+            str(self.config_data["lessons"][selected_indexes]["grade"])
+        )
+        self.inspect_lesson.main_page_view.comboBox_lesson_group.setCurrentText(
+            str(self.config_data["lessons"][selected_indexes]["group"])
+        )
+        self.inspect_lesson.main_page_view.comboBox_obligation.setCurrentText(
+            self.config_data["lessons"][selected_indexes]["obligation"]
+        )
         self.inspect_lesson.main_page_view.pushButton_save_lesson.setEnabled(False)
         self.inspect_lesson.main_page_view.pushButton_assign_instructor.setEnabled(False)
         self.inspect_lesson.main_page_view.pushButton_remove_selected_instructor.setEnabled(False)
         self.inspect_lesson.show()
 
-
-        
     def on_inspect_instructor_clicked(self):
         selected_indexes = self.main_page_view.listView_instructors.selectedIndexes()
 
         if not selected_indexes:
             QMessageBox.warning(self, "Warning!", "Please select an instructor to inspect.")
-            return 
+            return
         selected_indexes = selected_indexes[0].row()
         self.inspect_instructor = AddInstructorController(self.config_data)
 
-        self.inspect_instructor.main_page_view.lineEdit_instructor_name.setText(self.config_data["instructors"][selected_indexes]["instructor_name"])   
+        self.inspect_instructor.main_page_view.lineEdit_instructor_name.setText(
+            self.config_data["instructors"][selected_indexes]["name"]
+        )
         for lesson in self.config_data["instructors"][selected_indexes]["lessons"]:
             item = QStandardItem(lesson)
             self.inspect_instructor.model.appendRow(item)
 
-        for day, value in self.config_data["instructors"][selected_indexes]["preferred_days"].items():
-            if value:
-                if day == "Monday":
-                    self.inspect_instructor.main_page_view.checkBox_monday.setChecked(True)
-                elif day == "Tuesday":
-                    self.inspect_instructor.main_page_view.checkBox_tuesday.setChecked(True)
-                elif day == "Wednesday":
-                    self.inspect_instructor.main_page_view.checkBox_wednesday.setChecked(True)
-                elif day == "Thursday":
-                    self.inspect_instructor.main_page_view.checkBox_thursday.setChecked(True)
-                elif day == "Friday":
-                    self.inspect_instructor.main_page_view.checkBox_friday.setChecked(True) 
+        for day in self.config_data["instructors"][selected_indexes]["preferred_days"]:
+            if day == "Monday":
+                self.inspect_instructor.main_page_view.checkBox_monday.setChecked(True)
+            elif day == "Tuesday":
+                self.inspect_instructor.main_page_view.checkBox_tuesday.setChecked(True)
+            elif day == "Wednesday":
+                self.inspect_instructor.main_page_view.checkBox_wednesday.setChecked(True)
+            elif day == "Thursday":
+                self.inspect_instructor.main_page_view.checkBox_thursday.setChecked(True)
+            elif day == "Friday":
+                self.inspect_instructor.main_page_view.checkBox_friday.setChecked(True)
         self.inspect_instructor.main_page_view.pushButton_save_instructor.setEnabled(False)
         self.inspect_instructor.main_page_view.pushButton_assign_lesson.setEnabled(False)
         self.inspect_instructor.main_page_view.pushButton_remove_selected_lesson.setEnabled(False)
         self.inspect_instructor.show()
-
 
     def on_add_instructor_clicked(self):
         self.add_instructor_page = AddInstructorController(self.config_data)
@@ -177,42 +201,41 @@ class MainPageController(QMainWindow):
         self.config_data["classrooms"].append(data)
         self.update_list_views()
 
-
     def on_lesson_data_received(self, data):
         self.config_data["lessons"].append(data)
         self.update_list_views()
-
 
     def on_instructor_data_received(self, data):
         self.config_data["instructors"].append(data)
         self.update_list_views()
 
-
     def save_configuration(self):
         options = QFileDialog.Options()
-        file_name, _ = QFileDialog.getSaveFileName(self, "Save Configuration", "", "JSON Files (*.json);;All Files (*)", options=options)
-        
+        file_name, _ = QFileDialog.getSaveFileName(
+            self, "Save Configuration", "", "JSON Files (*.json);;All Files (*)", options=options
+        )
+
         if file_name:
-            with open(file_name, 'w') as json_file:
+            with open(file_name, "w") as json_file:
                 json.dump(self.config_data, json_file, indent=4)
 
             QMessageBox.information(None, "Success!", "Configuration has been saved successfully!")
 
         self.main_page_view.label_output_file.setText("Exported File:" + file_name)
-    
 
     def load_configuration(self):
         options = QFileDialog.Options()
-        file_name, _ = QFileDialog.getOpenFileName(self, "Load Configuration", "", "JSON Files (*.json);;All Files (*)", options=options)
+        file_name, _ = QFileDialog.getOpenFileName(
+            self, "Load Configuration", "", "JSON Files (*.json);;All Files (*)", options=options
+        )
 
         if file_name:
-            with open(file_name, 'r') as json_file:
+            with open(file_name, "r") as json_file:
                 self.config_data = json.load(json_file)
 
             self.update_list_views()
             QMessageBox.information(None, "Success!", "Configuration has been loaded successfully!")
         self.main_page_view.label_input_file.setText("Loaded File: " + file_name)
-
 
     # Clear the list then add the elements from the config_data
     def update_list_views(self):
@@ -221,17 +244,13 @@ class MainPageController(QMainWindow):
         self.classroom_model.clear()
 
         for lesson in self.config_data["lessons"]:
-            item = QStandardItem(lesson["lesson_name"])
+            item = QStandardItem(lesson["name"])
             self.lesson_model.appendRow(item)
 
         for instructor in self.config_data["instructors"]:
-            item = QStandardItem(instructor["instructor_name"])
+            item = QStandardItem(instructor["name"])
             self.instructor_model.appendRow(item)
 
         for classroom in self.config_data["classrooms"]:
             item = QStandardItem(classroom)
             self.classroom_model.appendRow(item)
-
-    
-
-        

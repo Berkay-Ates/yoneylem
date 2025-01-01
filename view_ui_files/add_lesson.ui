@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>350</width>
-    <height>798</height>
+    <height>866</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -190,22 +190,94 @@
           </property>
           <item>
            <property name="text">
-            <string>1st Grade</string>
+            <string>1</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>2nd Grade</string>
+            <string>2</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>3rd Grade</string>
+            <string>3</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>4th Grade</string>
+            <string>4</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_7">
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Lesson Group</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="comboBox_lesson_group">
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <item>
+           <property name="text">
+            <string>1</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>2</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>3</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>4</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_8">
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Obligation</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="comboBox_obligation">
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <item>
+           <property name="text">
+            <string>mandatory</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>elective</string>
            </property>
           </item>
          </widget>

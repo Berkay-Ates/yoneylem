@@ -56,4 +56,5 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label_5.setText(_translate("MainWindow", "Classroom Name"))
+        self.lineEdit_classroom_name.setPlaceholderText(_translate("MainWindow", "Classroom Name"))
         self.pushButton_save_classroom.setText(_translate("MainWindow", "Add to Classroom List"))
