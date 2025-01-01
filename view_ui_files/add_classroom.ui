@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>314</width>
-    <height>176</height>
+    <height>218</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,6 +15,18 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
+    <item row="1" column="0">
+     <widget class="QPushButton" name="pushButton_save_classroom">
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Add to Classroom List</string>
+      </property>
+     </widget>
+    </item>
     <item row="0" column="0">
      <layout class="QVBoxLayout" name="verticalLayout_4">
       <item>
@@ -33,6 +45,11 @@
         </item>
         <item>
          <widget class="QLineEdit" name="lineEdit_classroom_name">
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
           <property name="placeholderText">
            <string>Classroom Name</string>
           </property>
@@ -42,15 +59,15 @@
       </item>
      </layout>
     </item>
-    <item row="1" column="0">
-     <widget class="QPushButton" name="pushButton_save_classroom">
+    <item row="2" column="0">
+     <widget class="QPushButton" name="pushButton_update_classroom">
       <property name="font">
        <font>
         <pointsize>12</pointsize>
        </font>
       </property>
       <property name="text">
-       <string>Add to Classroom List</string>
+       <string>Update Classroom</string>
       </property>
      </widget>
     </item>
