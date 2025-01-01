@@ -160,7 +160,7 @@ class MainPageController(QMainWindow):
             QMessageBox.warning(self, "Warning!", "Please select an instructor to inspect.")
             return
         selected_indexes = selected_indexes[0].row()
-        self.inspect_instructor = AddInstructorController(self.config_data)
+        self.inspect_instructor = AddInstructorController(self.config_data, selected_indexes)
 
         self.inspect_instructor.main_page_view.lineEdit_instructor_name.setText(
             self.config_data["instructors"][selected_indexes]["name"]
@@ -180,15 +180,16 @@ class MainPageController(QMainWindow):
                 self.inspect_instructor.main_page_view.checkBox_thursday.setChecked(True)
             elif day == "Friday":
                 self.inspect_instructor.main_page_view.checkBox_friday.setChecked(True)
+
+        self.inspect_instructor.data_signal_update.connect(self.on_instructor_data_updated)
         self.inspect_instructor.main_page_view.pushButton_save_instructor.setEnabled(False)
-        self.inspect_instructor.main_page_view.pushButton_assign_lesson.setEnabled(False)
-        self.inspect_instructor.main_page_view.pushButton_remove_selected_lesson.setEnabled(False)
         self.inspect_instructor.show()
 
     def on_add_instructor_clicked(self):
         self.add_instructor_page = AddInstructorController(self.config_data)
         self.add_instructor_page.show()
         self.add_instructor_page.data_signal.connect(self.on_instructor_data_received)
+        self.add_instructor_page.main_page_view.pushButton_update_instructor.setEnabled(False)
 
     def on_add_lesson_clicked(self):
         self.add_lesson_page = AddLessonController(self.config_data)
@@ -218,6 +219,9 @@ class MainPageController(QMainWindow):
         self.update_list_views()
 
 
+    def on_instructor_data_updated(self, data, index):
+        self.config_data["instructors"][index] = data
+        self.update_list_views()
 
     def on_instructor_data_received(self, data):
         self.config_data["instructors"].append(data)
