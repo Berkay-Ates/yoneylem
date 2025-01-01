@@ -1,179 +1,556 @@
 {
     "instructors": [
         {
-            "instructor_name": "John Doe",
-            "lessons": [
-                "Math 101",
-                "Physics 201"
-            ],
-            "preferred_days": {
-                "Monday": true,
-                "Tuesday": true,
-                "Wednesday": true,
-                "Thursday": true,
-                "Friday": true
-            }
+            "name": "Pinar_ALbayrak1",
+            "lessons": ["MAT1071_MATEMTIK1"],
+            "preferred_days": [ "Monday", "Tuesday","Wednesday", "Thursday", "Friday" ]
         },
         {
-            "instructor_name": "Jane Smith",
-            "lessons": [
-                "Biology 101",
-                "Chemistry 201"
-            ],
-            "preferred_days": {
-                "Monday": false,
-                "Tuesday": true,
-                "Wednesday": false,
-                "Thursday": true,
-                "Friday": true
-            }
+            "name": "Pinar_ALbayrak2",
+            "lessons": ["MAT1071_MATEMTIK1"],
+            "preferred_days": [ "Monday", "Tuesday","Wednesday", "Thursday", "Friday" ]
         },
         {
-            "instructor_name": "Alice Johnson",
-            "lessons": [
-                "English 101",
-                "History 201"
-            ],
-            "preferred_days": {
-                "Monday": true,
-                "Tuesday": true,
-                "Wednesday": false,
-                "Thursday": true,
-                "Friday": false
-            }
+            "name": "Kerem_Karaosmanoğlu",
+            "lessons": ["ATA1031_INKULAP_TARIHI"],
+            "preferred_days": [ "Monday", "Tuesday","Wednesday", "Thursday", "Friday" ]
         },
         {
-            "instructor_name": "Robert Brown",
-            "lessons": [
-                "Philosophy 101",
-                "Math 102"
-            ],
-            "preferred_days": {
-                "Monday": true,
-                "Tuesday": false,
-                "Wednesday": true,
-                "Thursday": false,
-                "Friday": true
-            }
+            "name": "HARIS_KULOSMANOVIC1",
+            "lessons": ["FIZ1001_Fizik_1"],
+            "preferred_days": [ "Monday", "Tuesday","Wednesday", "Thursday", "Friday" ]
         },
         {
-            "instructor_name": "Laura Wilson",
-            "lessons": [
-                "Physics 301",
-                "Chemistry 301"
-            ],
-            "preferred_days": {
-                "Monday": false,
-                "Tuesday": false,
-                "Wednesday": false,
-                "Thursday": false,
-                "Friday": false
-            }
+            "name": "HARIS_KULOSMANOVIC2",
+            "lessons": ["FIZ1001_Fizik_1"],
+            "preferred_days": [ "Monday", "Tuesday","Wednesday", "Thursday", "Friday" ]
+        },
+        {
+            "name": "Kayahan_Sanli1",
+            "lessons": ["MAT1320_Lineer_Cebir"],
+            "preferred_days": [ "Monday", "Tuesday","Wednesday", "Thursday", "Friday" ]
+        },
+        {
+            "name": "Kayahan_Sanli2",
+            "lessons": ["MAT1320_Lineer_Cebir"],
+            "preferred_days": [ "Monday", "Tuesday","Wednesday", "Thursday", "Friday" ]
+        },
+        {
+            "name": "Adem_Altay",
+            "lessons": ["BLM1991_İş_Sağ_Güv_1"],
+            "preferred_days": [ "Monday", "Tuesday","Wednesday", "Thursday", "Friday" ]
+        },
+        {
+            "name": "Ece_Aksan1",
+            "lessons": ["MDB1031_İleri_İngilizce_I"],
+            "preferred_days": [ "Monday", "Tuesday","Wednesday", "Thursday", "Friday" ]
+        },
+        {
+            "name": "Ece_Aksan2",
+            "lessons": ["MDB1031_İleri_İngilizce_I"],
+            "preferred_days": [ "Monday", "Tuesday","Wednesday", "Thursday", "Friday" ]
+        },
+        {
+            "name": "M_Elif_Karsligil",
+            "lessons": ["BLM3021_Algoritma_Analizi"],
+            "preferred_days": [ "Monday", "Tuesday","Wednesday", "Thursday", "Friday" ]
+        },
+        {
+            "name": "Sirma_Cekirdek_Yavuz",
+            "lessons": [],
+            "preferred_days": [ "Friday" ]
+        },
+        {
+            "name": "Songul_Varli",
+            "lessons": [],
+            "preferred_days": [ "Tuesday", "Thursday" ]
+        },
+        {
+            "name": "Oya_Kalipsiz",
+            "lessons": [ "BLM4710_Yönetim_Bilgi_Sis", "BLM4770_Yaz_Kal_Test_Sür"],
+            "preferred_days": [ "Monday", "Wednesday", "Friday" ]
+        },
+        {
+            "name": "Banu_Diri",
+            "lessons": [ "BLM2521_Ayrık_Matematik" ],
+            "preferred_days": [ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" ]
+        },
+        {
+            "name": "M_Fatih_Amasyali",
+            "lessons": [ "BLM2642_Bilg_Müh_İçin_Diff_Denk" ],
+            "preferred_days": [ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" ]
+        },
+        {
+            "name": "Gokhan_Bilgin",
+            "lessons": [ "BLM2611_Lojik_Devreler"],
+            "preferred_days": [ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" ]
+        },
+        {
+            "name": "M_Siddik_Aktas",
+            "lessons": ["BLM2012_Nesneye_Yönelik_Prog","BLM3120_Bil_Er_Ar_Mot" ],
+            "preferred_days": [ "Monday", "Tuesday", "Thursday", "Friday" ]
+        },
+        {
+            "name": "M_Amac_Guvensan",
+            "lessons": ["BLM1011_Bilgisayar_Bilimlerine_Giris","BLM3021_Algoritma_Analizi" ],
+            "preferred_days": [ "Monday","Tuesday", "Thursday", "Friday" ]
+        },
+        {
+            "name": "Ali_Can_Karaca",
+            "lessons": [ "BLM4021_Gömülü_Sistemler" ],
+            "preferred_days": [ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" ]
+        },
+        {
+            "name": "H_Osman_Ilhan",
+            "lessons": ["BLM2611_Lojik_Devreler" ],
+            "preferred_days": [ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" ]
+        },
+        {
+            "name": "Z_Cihan_Taysi",
+            "lessons": [ ],
+            "preferred_days": [ "Friday" ]
+        },
+        {
+            "name": "H_Irem_Turkmen",
+            "lessons": [ "BLM1011_Bilgisayar_Bilimlerine_Giris"],
+            "preferred_days": [ "Monday", "Tuesday", "Thursday" ]
+        },
+        {
+            "name": "ERKAN_USLU",
+            "lessons": [ "BLM3061_Mikroişl_Sist_ve_Assmb" ],
+            "preferred_days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday" ]
+        },
+        {
+            "name": "Oguz_Altun",
+            "lessons": [ "BLM2011_İst_ve_Olasılık_Hes" ,"BLM3730_Blokzincir_Temelleri"],
+            "preferred_days": [ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" ]
+        },
+        {
+            "name": "Goksel_Biricik",
+            "lessons": ["BLM1011_Bilgisayar_Bilimlerine_Giris","BLM3042_Seminer_ve_Meslek_Etigi" ],
+            "preferred_days": [ "Tuesday", "Wednesday", "Friday" ]
+        },
+        {
+            "name": "M_Utku_Kalay",
+            "lessons": [ "BLM3041_Veritabanı_Yönetimi","BLM3780_Ver_Tab_Sis_Gerç"],
+            "preferred_days": [ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" ]
+        },
+        {
+            "name": "Y_Emre_Selcuk",
+            "lessons": [ "BLM2012_Nesneye_Yönelik_Prog","BLM3042_Seminer_ve_Meslek_Etigi"],
+            "preferred_days": [ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" ]
+        },
+        {
+            "name": "Furkan_Cakmak",
+            "lessons": ["BLM2012_Nesneye_Yönelik_Prog", "BLM3061_Mikroişl_Sist_ve_Assmb" ],
+            "preferred_days": ["Tuesday","Thursday"]
+        },
+        {
+            "name": "Ahmet_Elbir",
+            "lessons": ["BLM2521_Ayrık_Matematik","BLM3011_İşletim_Sistemleri"],
+            "preferred_days": [ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+        },
+        {
+            "name": "Ayse_Dalgali",
+            "lessons": [ "BLM2642_Bilg_Müh_İçin_Diff_Denk", "BLM2011_İst_ve_Olasılık_Hes" ],
+            "preferred_days": [ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" ]
+        },
+        {
+            "name": "Ayse_Buharli_Olcasoy",
+            "lessons": ["BLM3740_Yöneylem_Araştırması"],
+            "preferred_days": [ "Monday", "Thursday"]
+        },
+        {
+            "name": "Emine_Dumlu_Demircioglu",
+            "lessons": ["BLM3110_BMÖK_1"],
+            "preferred_days": [ "Wednesday" ]
+        }
+        ,
+        {
+            "name": "Ali_Gokhan_Yavuz",
+            "lessons": ["BLM4011_Bilişim_Sis_Güvenliği"],
+            "preferred_days": [ "Friday" ]
         }
     ],
     "lessons": [
         {
-            "lesson_name": "Math 101",
-            "instructors":[ "John Doe"],
-            "grade": "1st Grade",
-            "lesson_type": {
-                "Face To Face": true,
-                "Online": false,
-                "Hybrid": false
-            },
-            "lesson_hour":3
-
+            "name": "MAT1071_MATEMTIK1",
+            "instructors": ["Pinar_ALbayrak1" ,"Pinar_ALbayrak2" ],
+            "grade": 1,
+            "group": 1,
+            "obligation":"mandatory",
+            "type": "FaceToFace",
+            "duration":3
         },
         {
-            "lesson_name": "Biology 101",
-            "instructors": ["Jane Smith"],
-            "grade": "2nd Grade",
-            "lesson_type": {
-                "Face To Face": false,
-                "Online": true,
-                "Hybrid": false
-            },
-            "lesson_hour":3
+            "name": "MAT1071_MATEMTIK1",
+            "instructors": ["Pinar_ALbayrak1" ,"Pinar_ALbayrak2" ],
+            "grade": 1,
+            "group": 2,
+            "obligation":"mandatory",
+            "type": "FaceToFace",
+            "duration":3
         },
         {
-            "lesson_name": "English 101",
-            "instructors": ["Alice Johnson"],
-            "grade": "1st Grade",
-            "lesson_type": {
-                "Face To Face": true,
-                "Online": false,
-                "Hybrid": false
-            },
-            "lesson_hour":3
+            "name": "ATA1031_INKULAP_TARIHI",
+            "instructors": [ "Kerem_Karaosmanoğlu" ],
+            "grade": 1,
+            "group": 1,
+            "obligation":"mandatory",
+            "type": "Online",
+            "duration":3
         },
         {
-            "lesson_name": "Physics 201",
-            "instructors": ["John Doe"],
-            "grade": "2nd Grade",
-            "lesson_type": {
-                "Face To Face": true,
-                "Online": false,
-                "Hybrid": false
-            },
-            "lesson_hour":3
+            "name": "FIZ1001_Fizik_1",
+            "instructors": [ "HARIS_KULOSMANOVIC1", "HARIS_KULOSMANOVIC2"],
+            "grade": 1,
+            "group": 1,
+            "obligation":"mandatory",
+            "type": "FaceToFace",
+            "duration":3
         },
         {
-            "lesson_name": "Philosophy 101",
-            "instructors": [
-                "Robert Brown",
-                "John Doe",
-                "Jane Smith"
-            ],
-            "grade": "1st Grade",
-            "lesson_type": {
-                "Face To Face": true,
-                "Online": false,
-                "Hybrid": false
-            },
-            "lesson_hour":3
+            "name": "FIZ1001_Fizik_1",
+            "instructors": ["HARIS_KULOSMANOVIC1", "HARIS_KULOSMANOVIC2"],
+            "grade": 1,
+            "group": 2,
+            "obligation":"mandatory",
+            "type": "FaceToFace",
+            "duration":3
         },
         {
-            "lesson_name": "History 201",
-            "instructors": ["Alice Johnson"],
-            "grade": "2nd Grade",
-            "lesson_type": {
-                "Face To Face": false,
-                "Online": false,
-                "Hybrid": true
-            },
-            "lesson_hour":3
+            "name": "MAT1320_Lineer_Cebir",
+            "instructors": [ "Kayahan_Sanli1", "Kayahan_Sanli2" ],
+            "grade": 1,
+            "group": 1,
+            "obligation":"mandatory",
+            "type": "FaceToFace",
+            "duration":3
         },
         {
-            "lesson_name": "Math 102",
-            "instructors": ["Robert Brown"],
-            "grade": "1st Grade",
-            "lesson_type": {
-                "Face To Face": true,
-                "Online": false,
-                "Hybrid": false
-            },
-            "lesson_hour":3
+            "name": "MAT1320_Lineer_Cebir",
+            "instructors": [ "Kayahan_Sanli1", "Kayahan_Sanli2" ],
+            "grade": 1,
+            "group": 2,
+            "obligation":"mandatory",
+            "type": "FaceToFace",
+            "duration":3
         },
         {
-            "lesson_name": "Chemistry 301",
-            "instructors": ["Laura Wilson"],
-            "grade": "3rd Grade",
-            "lesson_type": {
-                "Face To Face": false,
-                "Online": true,
-                "Hybrid": false
-            },
-            "lesson_hour":3
+            "name": "MDB1031_İleri_İngilizce_I",
+            "instructors": ["Ece_Aksan1", "Ece_Aksan2" ],
+            "grade": 1,
+            "group": 2,
+            "obligation":"mandatory",
+            "type": "FaceToFace",
+            "duration":3
+        },
+        {
+            "name": "MDB1031_İleri_İngilizce_I",
+            "instructors": ["Ece_Aksan1", "Ece_Aksan2" ],
+            "grade": 1,
+            "group": 2,
+            "obligation":"mandatory",
+            "type": "FaceToFace",
+            "duration":3
+        },
+        {
+            "name": "BLM1011_Bilgisayar_Bilimlerine_Giris",
+            "instructors": ["Goksel_Biricik", "H_Irem_Turkmen", "M_Amac_Guvensan" ],
+            "grade": 1,
+            "group": 1,
+            "obligation":"mandatory",
+            "type": "FaceToFace",
+            "duration":3
+        },
+        {
+            "name": "BLM1011_Bilgisayar_Bilimlerine_Giris",
+            "instructors": ["Goksel_Biricik", "H_Irem_Turkmen", "M_Amac_Guvensan" ],
+            "grade": 1,
+            "group": 2,
+            "obligation":"mandatory",
+            "type": "FaceToFace",
+            "duration":3
+        },
+        {
+            "name": "BLM1011_Bilgisayar_Bilimlerine_Giris",
+            "instructors": ["Goksel_Biricik", "H_Irem_Turkmen", "M_Amac_Guvensan" ],
+            "grade": 1,
+            "group": 3,
+            "obligation":"mandatory",
+            "type": "FaceToFace",
+            "duration":3
+        },
+        {
+            "name": "BLM1991_İş_Sağ_Güv_1",
+            "instructors": [ "Adem_Altay"],
+            "grade": 1,
+            "group": 1,
+            "obligation":"mandatory",
+            "type": "FaceToFace",
+            "duration":3
+        },
+        {
+            "name": "BLM2012_Nesneye_Yönelik_Prog",
+            "instructors": ["Furkan_Cakmak", "Y_Emre_Selcuk", "M_Siddik_Aktas"],
+            "grade": 2,
+            "group": 1,
+            "obligation":"mandatory",
+            "type": "FaceToFace",
+            "duration":3
+        },
+        {
+            "name": "BLM2012_Nesneye_Yönelik_Prog",
+            "instructors": ["Furkan_Cakmak", "Y_Emre_Selcuk", "M_Siddik_Aktas"],
+            "grade": 2,
+            "group": 2,
+            "obligation":"mandatory",
+            "type": "FaceToFace",
+            "duration":3
+        },
+        {
+            "name": "BLM2012_Nesneye_Yönelik_Prog",
+            "instructors": ["Furkan_Cakmak", "Y_Emre_Selcuk", "M_Siddik_Aktas"],
+            "grade": 2,
+            "group": 3,
+            "obligation":"mandatory",
+            "type": "FaceToFace",
+            "duration":3
+        },
+        {
+            "name": "BLM2611_Lojik_Devreler",
+            "instructors": [ "H_Osman_Ilhan", "Gokhan_Bilgin" ],
+            "grade": 2,
+            "group": 1,
+            "obligation":"mandatory",
+            "type": "FaceToFace",
+            "duration":2
+        },
+        {
+            "name": "BLM2611_Lojik_Devreler",
+            "instructors": [ "H_Osman_Ilhan", "Gokhan_Bilgin" ],
+            "grade": 2,
+            "group": 2,
+            "obligation":"mandatory",
+            "type": "FaceToFace",
+            "duration":2
+        },
+        {
+            "name": "BLM2521_Ayrık_Matematik",
+            "instructors": [ "Banu_Diri","Ahmet_Elbir" ],
+            "grade": 2,
+            "group": 1,
+            "obligation":"mandatory",
+            "type": "FaceToFace",
+            "duration":2
+        },
+        {
+            "name": "BLM2521_Ayrık_Matematik",
+            "instructors": [ "Banu_Diri","Ahmet_Elbir" ],
+            "grade": 2,
+            "group": 2,
+            "obligation":"mandatory",
+            "type": "FaceToFace",
+            "duration":2
+        },
+        {
+            "name": "BLM2011_İst_ve_Olasılık_Hes",
+            "instructors": [ "Ayse_Dalgali", "Oguz_Altun" ],
+            "grade": 2,
+            "group": 1,
+            "obligation":"mandatory",
+            "type": "FaceToFace",
+            "duration":3
+        },
+        {
+            "name": "BLM2011_İst_ve_Olasılık_Hes",
+            "instructors": [ "Ayse_Dalgali", "Oguz_Altun" ],
+            "grade": 2,
+            "group": 2,
+            "obligation":"mandatory",
+            "type": "FaceToFace",
+            "duration":3
+        },
+        {
+            "name": "BLM2642_Bilg_Müh_İçin_Diff_Denk",
+            "instructors": [ "Ayse_Dalgali","M_Fatih_Amasyali" ],
+            "grade": 2,
+            "group": 1,
+            "obligation":"mandatory",
+            "type": "FaceToFace",
+            "duration":3
+        } ,
+        {
+            "name": "BLM2642_Bilg_Müh_İçin_Diff_Denk",
+            "instructors": [ "Ayse_Dalgali","M_Fatih_Amasyali" ],
+            "grade": 2,
+            "group": 2,
+            "obligation":"mandatory",
+            "type": "FaceToFace",
+            "duration":3
+        }, 
+        {
+            "name": "BLM3042_Seminer_ve_Meslek_Etigi",
+            "instructors": ["Goksel_Biricik","Y_Emre_Selcuk" ],
+            "grade": 2,
+            "group": 1,
+            "obligation":"mandatory",
+            "type": "FaceToFace",
+            "duration":3
+        }, 
+        {
+            "name": "BLM3042_Seminer_ve_Meslek_Etigi",
+            "instructors": ["Goksel_Biricik","Y_Emre_Selcuk" ],
+            "grade": 2,
+            "group": 2,
+            "obligation":"mandatory",
+            "type": "FaceToFace",
+            "duration":3
+        }, 
+        {
+            "name": "BLM3021_Algoritma_Analizi",
+            "instructors": ["M_Amac_Guvensan", "M_Elif_Karsligil"],
+            "grade": 3,
+            "group": 1,
+            "obligation":"mandatory",
+            "type": "FaceToFace",
+            "duration":3
+        }, 
+        {
+            "name": "BLM3021_Algoritma_Analizi",
+            "instructors": ["M_Amac_Guvensan", "M_Elif_Karsligil"],
+            "grade": 3,
+            "group": 2,
+            "obligation":"mandatory",
+            "type": "FaceToFace",
+            "duration":3
+        } 
+        , {
+            "name": "BLM3011_İşletim_Sistemleri",
+            "instructors": ["Ahmet_Elbir" ],
+            "grade": 3,
+            "group": 1,
+            "obligation":"mandatory",
+            "type": "FaceToFace",
+            "duration":3
+        }, 
+        {
+            "name": "BLM3110_BMÖK_1",
+            "instructors": [ "Emine_Dumlu_Demircioglu" ],
+            "grade": 3,
+            "group": 1,
+            "obligation":"elective",
+            "type": "FaceToFace",
+            "duration":3
         }
+        , {
+            "name": "BLM3041_Veritabanı_Yönetimi",
+            "instructors": [ "M_Utku_Kalay" ],
+            "grade": 3,
+            "group": 1,
+            "obligation":"mandatory",
+            "type": "FaceToFace",
+            "duration":3
+        }
+        , {
+            "name": "BLM3061_Mikroişl_Sist_ve_Assmb",
+            "instructors": ["Furkan_Cakmak","ERKAN_USLU" ],
+            "grade": 3,
+            "group": 1,
+            "obligation":"mandatory",
+            "type": "FaceToFace",
+            "duration":3
+        }
+        , {
+            "name": "BLM3061_Mikroişl_Sist_ve_Assmb",
+            "instructors": ["Furkan_Cakmak","ERKAN_USLU" ],
+            "grade": 3,
+            "group": 2,
+            "obligation":"mandatory",
+            "type": "FaceToFace",
+            "duration":3
+        }
+        , {
+            "name": "BLM3740_Yöneylem_Araştırması",
+            "instructors": [ "Ayse_Buharli_Olcasoy" ],
+            "grade": 4,
+            "group": 1,
+            "obligation":"mandatory",
+            "type": "FaceToFace",
+            "duration":3
+        }
+        ,
+         {
+            "name": "BLM3120_Bil_Er_Ar_Mot",
+            "instructors": ["M_Siddik_Aktas" ],
+            "grade": 3,
+            "group": 1,
+            "obligation":"elective",
+            "type": "FaceToFace",
+            "duration":3
+        }
+        ,
+        {
+           "name": "BLM3730_Blokzincir_Temelleri",
+           "instructors": ["Oguz_Altun" ],
+           "grade": 3,
+           "group": 1,
+           "obligation":"elective",
+           "type": "FaceToFace",
+           "duration":3
+       }
+        ,
+        {
+           "name": "BLM3780_Ver_Tab_Sis_Gerç",
+           "instructors": [ "M_Utku_Kalay"],
+           "grade": 3,
+           "group": 1,
+           "obligation":"elective",
+           "type": "FaceToFace",
+           "duration":3
+       }
+        ,
+        {
+           "name": "BLM4011_Bilişim_Sis_Güvenliği",
+           "instructors": [ "Ali_Gokhan_Yavuz" ],
+           "grade": 4,
+           "group": 1,
+           "obligation":"elective",
+           "type": "FaceToFace",
+           "duration":3
+       }
+        ,
+        {
+           "name": "BLM4710_Yönetim_Bilgi_Sis" ,
+           "instructors": ["Oya_Kalipsiz" ],
+           "grade": 4,
+           "group": 1,
+           "obligation":"elective",
+           "type": "FaceToFace",
+           "duration":3
+       }
+        ,
+        {
+           "name": "BLM4770_Yaz_Kal_Test_Sür",
+           "instructors": [ "Oya_Kalipsiz"],
+           "grade": 4,
+           "group": 1,
+           "obligation":"elective",
+           "type": "FaceToFace",
+           "duration":3
+       }
+        ,
+        {
+           "name": "BLM4021_Gömülü_Sistemler",
+           "instructors": [ "Ali_Can_Karaca" ],
+           "grade": 4,
+           "group": 1,
+           "obligation":"elective",
+           "type": "FaceToFace",
+           "duration":3
+       }
+       
     ],
-    "classrooms": [
-        "Room 101",
-        "Lab 202",
-        "Room 103",
-        "Lab 204",
-        "Room 205",
-        "Lab 206",
-        "Room 207",
-        "Lab 208"
-    ]
+    "classrooms": ["D-106", "D-107", "D-108", "D-109", "D-110", "D-111", "D-010", "DB-011", "D-012"]
 }
+
